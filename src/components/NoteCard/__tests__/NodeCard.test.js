@@ -2,7 +2,7 @@ import NoteCard from '../NoteCard';
 import { screen, render, cleanup } from '@testing-library/react';
 
 describe('NoteCard', () => {
-  const props = { note: { title: 'title' } };
+  const props = { note: { title: 'title', notes: 'some notes', priority: 1 } };
 
   beforeEach(() => {
     render(<NoteCard {...props} />);
@@ -16,5 +16,10 @@ describe('NoteCard', () => {
 
   test('renders title passed in props', () => {
     expect(screen.getByText(props.note.title)).toBeInTheDocument();
+  });
+  test('has correct background color for high priority', () => {
+    expect(
+      screen.getByTestId('component-note-card').classList.contains('high'),
+    ).toBeTruthy();
   });
 });

@@ -9,7 +9,9 @@ class App extends Component {
         <header className="App-header">
           <h1 className={styles.header}>Loads of Notes</h1>
         </header>
-        <NoteCard note={{ title: 'testing testing' }} />
+        <NoteCard
+          note={{ title: 'testing testing', notes: ' some notes', priority: 1 }}
+        />
       </div>
     );
   }

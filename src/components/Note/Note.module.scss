@@ -1,0 +1,68 @@
+@import '../../css/base';
+
+.background {
+  z-index: 9;
+  position: absolute;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.note {
+  z-index: 10;
+  position: relative;
+  background-color: #fff;
+  top: 10vh;
+  width: 90%;
+  margin: auto;
+  min-height: 70vh;
+  max-width: 50rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  input,
+  select,
+  textarea {
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+    font-family: $font-handwritten;
+  }
+
+  &_input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  &_close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+  }
+
+  &_delete {
+    margin-top: auto;
+    background-color: $color-bright-red;
+    color: #fff;
+    border: none;
+    padding: 1em 2em;
+    width: 10rem;
+  }
+}

@@ -1,65 +1,144 @@
 import React, { Component } from 'react';
 import styles from './App.module.scss';
 import NoteCard from './components/NoteCard/NoteCard';
+import Note from './components/Note/Note';
+import Layout from './components/Layout/Layout';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 class App extends Component {
   state = {
-    notes: [
-      { title: 'testing testing', notes: ' some notes', priority: 1 },
-      { title: 'testing testing', notes: ' some notes', priority: 1 },
-      { title: 'testing testing', notes: ' some notes', priority: 2 },
-      { title: 'testing testing', notes: ' some notes', priority: 3 },
-    ],
+    notes: [],
+    showNote: false,
+    currentNote: { title: '', notes: '', priority: 'low' },
   };
 
   returnPriorityNotes = (priority) => {
     return this.state.notes
       .filter((note) => note.priority === priority)
-      .map((note, index) => <NoteCard note={note} key={index} />);
+      .map((note, index) => (
+        <NoteCard
+          note={note}
+          key={index}
+          click={() => this.openExistingNoteHandler(note.id)}
+        />
+      ));
+  };
+
+  openNote = () => {
+    this.setState({ showNote: true });
+    disableBodyScroll(Note);
+  };
+
+  closeNote = () => {
+    this.setState({ showNote: false });
+    enableBodyScroll(Note);
+  };
+
+  newNoteHandler = () => {
+    const randomId = Math.random().toString(36).substr(2, 9);
+    const newNote = { title: '', notes: '', priority: 'low', id: randomId };
+    this.setState({
+      currentNote: newNote,
+    });
+    this.openNote();
+  };
+
+  openExistingNoteHandler = (id) => {
+    const note = this.state.notes.filter((note) => note.id === id)[0];
+    this.setState({ currentNote: note });
+    this.openNote();
+  };
+
+  updateCurrentNoteHandler = (event) => {
+    let newNote = { ...this.state.currentNote };
+    newNote[event.target.id] = event.target.value;
+    this.setState({
+      currentNote: newNote,
+    });
+  };
+
+  closeNoteHandler = () => {
+    const updatedNote = this.state.currentNote;
+    const filteredNotes = this.state.notes.filter(
+      (note) => note.id !== updatedNote.id,
+    );
+    if (updatedNote.title !== '') {
+      this.setState({
+        notes: [...filteredNotes, updatedNote],
+      });
+    } else {
+      this.setState({ notes: [...filteredNotes] });
+    }
+    this.closeNote();
+  };
+
+  deleteNoteHandler = () => {
+    const currentNoteId = this.state.currentNote.id;
+    const filteredNotes = this.state.notes.filter(
+      (note) => note.id !== currentNoteId,
+    );
+    this.setState({ notes: [...filteredNotes] });
+    this.closeNote();
   };
 
   render() {
-    const highPriorityNotes = this.returnPriorityNotes(1);
-    const mediumPriorityNotes = this.returnPriorityNotes(2);
-    const lowPriorityNotes = this.returnPriorityNotes(3);
+    const highPriorityNotes = this.returnPriorityNotes('high');
+    const mediumPriorityNotes = this.returnPriorityNotes('medium');
+    const lowPriorityNotes = this.returnPriorityNotes('low');
+
+    const note = (
+      <Note
+        close={this.closeNoteHandler}
+        note={this.state.currentNote}
+        change={(event) => this.updateCurrentNoteHandler(event)}
+        delete={this.deleteNoteHandler}
+      />
+    );
 
     return (
-      <div data-testid="component-app" className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.header_title}>Loads of Notes</h1>
-          <button className={styles.header_add} data-testid="add-note-button">
-            New Note
-          </button>
-        </header>
-        <main>
-          <section
-            data-testid="note-card-container"
-            className={styles.notesSection}
-          >
-            <h2 className={styles.notesSection_title}>High Priority</h2>
-            <div className={styles.notesSection_container}>
-              {highPriorityNotes}
-            </div>
-          </section>
-          <section
-            data-testid="note-card-container"
-            className={styles.notesSection}
-          >
-            <h2 className={styles.notesSection_title}>Medium Priority</h2>
-            <div className={styles.notesSection_container}>
-              {mediumPriorityNotes}
-            </div>
-          </section>
-          <section
-            data-testid="note-card-container"
-            className={styles.notesSection}
-          >
-            <h2 className={styles.notesSection_title}>Low Priority</h2>
-            <div className={styles.notesSection_container}>
-              {lowPriorityNotes}
-            </div>
-          </section>
-        </main>
+      <div data-testid="component-app">
+        {this.state.showNote ? note : null}
+        <Layout>
+          <header className={styles.header}>
+            <h1 className={styles.header_title}>Loads of Notes</h1>
+            <button
+              className={styles.header_add}
+              data-testid="add-note-button"
+              onClick={this.newNoteHandler}
+            >
+              New Note
+            </button>
+          </header>
+          <main>
+            <section
+              data-testid="note-card-container"
+              className={styles.notesSection}
+            >
+              <h2 className={styles.notesSection_title}>High Priority</h2>
+              <div className={styles.notesSection_container}>
+                {highPriorityNotes}
+              </div>
+            </section>
+            <section
+              data-testid="note-card-container"
+              className={styles.notesSection}
+            >
+              <h2 className={styles.notesSection_title}>Medium Priority</h2>
+              <div className={styles.notesSection_container}>
+                {mediumPriorityNotes}
+              </div>
+            </section>
+            <section
+              data-testid="note-card-container"
+              className={styles.notesSection}
+            >
+              <h2 className={styles.notesSection_title}>Low Priority</h2>
+              <div className={styles.notesSection_container}>
+                {lowPriorityNotes}
+              </div>
+            </section>
+          </main>
+        </Layout>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
@@ -26,6 +26,15 @@ describe('App', () => {
   describe.each(headers)('conaints headers', (header) => {
     test(`${header}`, () => {
       expect(screen.getByText(header)).toBeInTheDocument();
+    });
+  });
+
+  describe('with note popup not in dom', () => {
+    test('shows popup on selecting add new button', () => {
+      const addButton = screen.getByTestId('add-note-button');
+      fireEvent.click(addButton);
+      const note = screen.getByTestId('component-note');
+      expect(note).toBeInTheDocument();
     });
   });
 });

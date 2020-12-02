@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './App.module.scss';
+import NoteCard from './components/NoteCard/NoteCard';
 
 class App extends Component {
   render() {
@@ -8,6 +9,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className={styles.header}>Loads of Notes</h1>
         </header>
+        <NoteCard note={{ title: 'testing testing' }} />
       </div>
     );
   }

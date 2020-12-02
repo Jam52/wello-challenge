@@ -13,4 +13,11 @@ describe('Note', () => {
   test('renders w/ error', () => {
     expect(screen.getByTestId('component-note')).toBeInTheDocument();
   });
+
+  const labels = ['Title', 'Notes', 'Priority'];
+  describe.each(labels)('has label', (label) => {
+    test(`${label}`, () => {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    });
+  });
 });

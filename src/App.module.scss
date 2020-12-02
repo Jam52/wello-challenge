@@ -8,3 +8,21 @@
 .header {
   font-family: $font-handwritten;
 }
+
+.notesSection {
+  background-color: #fff;
+  padding: 1rem;
+  &_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  &_title {
+    font-family: $font-main;
+  }
+}
+
+.notesSection + .notesSection {
+  margin-top: 2rem;
+}

@@ -33,7 +33,7 @@ class App extends Component {
             data-testid="note-card-container"
             className={styles.notesSection}
           >
-            <h2>High Priority</h2>
+            <h2 className={styles.notesSection_title}>High Priority</h2>
             <div className={styles.notesSection_container}>
               {highPriorityNotes}
             </div>
@@ -42,7 +42,7 @@ class App extends Component {
             data-testid="note-card-container"
             className={styles.notesSection}
           >
-            <h2>Medium Priority</h2>
+            <h2 className={styles.notesSection_title}>Medium Priority</h2>
             <div className={styles.notesSection_container}>
               {mediumPriorityNotes}
             </div>
@@ -51,7 +51,7 @@ class App extends Component {
             data-testid="note-card-container"
             className={styles.notesSection}
           >
-            <h2>Low Priority</h2>
+            <h2 className={styles.notesSection_title}>Low Priority</h2>
             <div className={styles.notesSection_container}>
               {lowPriorityNotes}
             </div>

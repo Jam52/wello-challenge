@@ -15,7 +15,7 @@ const Note = (props) => {
     <div className={styles.background}>
       <div data-testid="component-note" className={styles.note}>
         <img
-          src={process.env.PUBLIC_URL + '/cross.svg'}
+          src={process.env.PUBLIC_URL + '/tick.svg'}
           alt="close"
           className={styles.note_close}
           onClick={props.close}

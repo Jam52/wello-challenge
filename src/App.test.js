@@ -17,6 +17,10 @@ describe('App', () => {
     expect(screen.getAllByTestId('note-card-container')).toHaveLength(3);
   });
 
+  test('renders add button', () => {
+    expect(screen.getByTestId('add-note-button')).toBeInTheDocument();
+  });
+
   const headers = ['High Priority', 'Medium Priority', 'Low Priority'];
 
   describe.each(headers)('conaints headers', (header) => {

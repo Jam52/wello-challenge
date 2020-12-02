@@ -6,11 +6,40 @@
 }
 
 .header {
-  font-family: $font-handwritten;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  justify-content: center;
+  align-items: center;
+
+  &_title {
+    text-align: center;
+    font-family: $font-handwritten;
+  }
+
+  &_add {
+    height: 3rem;
+    background-color: $color-bright-green;
+    color: #fff;
+    border: none;
+    width: 10rem;
+    box-shadow: $box_shadow;
+    border-radius: 0.2rem;
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: translateY(-3px);
+    }
+    &:active {
+      transform: translateY(0px);
+    }
+  }
 }
 
 .notesSection {
   background-color: #fff;
+  box-shadow: $box_shadow;
+  border-radius: 0.2rem;
   padding: 1rem;
   &_container {
     display: grid;
@@ -25,4 +54,11 @@
 
 .notesSection + .notesSection {
   margin-top: 2rem;
+}
+
+@media (min-width: $media-tablet) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

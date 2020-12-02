@@ -25,8 +25,11 @@ class App extends Component {
 
     return (
       <div data-testid="component-app" className={styles.container}>
-        <header className="App-header">
-          <h1 className={styles.header}>Loads of Notes</h1>
+        <header className={styles.header}>
+          <h1 className={styles.header_title}>Loads of Notes</h1>
+          <button className={styles.header_add} data-testid="add-note-button">
+            New Note
+          </button>
         </header>
         <main>
           <section

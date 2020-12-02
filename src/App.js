@@ -30,11 +30,7 @@ class App extends Component {
   };
 
   closeNote = () => {
-    const updatedNote = this.state.currentNote;
-    const filteredNotes = this.state.notes.filter(
-      (note) => note.id !== updatedNote.id,
-    );
-    this.setState({ showNote: false, notes: [...filteredNotes, updatedNote] });
+    this.setState({ showNote: false });
     enableBodyScroll(Note);
   };
 
@@ -61,6 +57,30 @@ class App extends Component {
     });
   };
 
+  closeExistingNoteHandler = () => {
+    const updatedNote = this.state.currentNote;
+    const filteredNotes = this.state.notes.filter(
+      (note) => note.id !== updatedNote.id,
+    );
+    if (updatedNote.title !== '') {
+      this.setState({
+        notes: [...filteredNotes, updatedNote],
+      });
+    } else {
+      this.setState({ notes: [...filteredNotes] });
+    }
+    this.closeNote();
+  };
+
+  deleteNoteHandler = () => {
+    const currentNoteId = this.state.currentNote.id;
+    const filteredNotes = this.state.notes.filter(
+      (note) => note.id !== currentNoteId,
+    );
+    this.setState({ notes: [...filteredNotes] });
+    this.closeNote();
+  };
+
   render() {
     const highPriorityNotes = this.returnPriorityNotes('high');
     const mediumPriorityNotes = this.returnPriorityNotes('medium');
@@ -68,9 +88,10 @@ class App extends Component {
 
     const note = (
       <Note
-        close={this.closeNote}
+        close={this.closeExistingNoteHandler}
         note={this.state.currentNote}
         change={(event) => this.updateCurrentNoteHandler(event)}
+        delete={this.deleteNoteHandler}
       />
     );
 

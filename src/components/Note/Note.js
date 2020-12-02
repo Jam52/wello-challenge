@@ -56,7 +56,9 @@ const Note = (props) => {
             onChange={props.change}
           />
         </div>
-        <button className={styles.note_delete}>Delete</button>
+        <button className={styles.note_delete} onClick={props.delete}>
+          Delete
+        </button>
       </div>
     </div>
   );

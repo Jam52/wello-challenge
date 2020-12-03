@@ -58,6 +58,7 @@ class App extends Component {
   };
 
   closeNoteHandler = () => {
+    console.log('close');
     const updatedNote = this.state.currentNote;
     const filteredNotes = this.state.notes.filter(
       (note) => note.id !== updatedNote.id,

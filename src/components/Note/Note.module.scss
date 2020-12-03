@@ -1,23 +1,21 @@
 @import '../../css/base';
 
 .background {
-  z-index: 9;
+  z-index: 8;
   position: absolute;
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .note {
   z-index: 10;
   position: relative;
   background-color: #fff;
-  top: 10vh;
   width: 90%;
-  margin: auto;
+  margin: 3rem auto;
   min-height: 70vh;
   max-width: 50rem;
   padding: 2rem;
@@ -31,10 +29,6 @@
     border: none;
     border-bottom: 1px solid #ccc;
     width: 100%;
-  }
-
-  textarea {
-    resize: none;
   }
 
   label {

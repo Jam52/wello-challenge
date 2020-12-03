@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './Note.module.scss';
 import autosize from 'autosize';
+import Backdrop from '../Backdrop/Backdrop';
 
 const Note = (props) => {
   useEffect(() => {
@@ -60,6 +61,7 @@ const Note = (props) => {
           Delete
         </button>
       </div>
+      <Backdrop close={props.close} />
     </div>
   );
 };

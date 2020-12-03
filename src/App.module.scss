@@ -33,8 +33,7 @@
 
 .notesSection {
   background-color: #fff;
-  box-shadow: $box_shadow;
-  border-radius: 0.2rem;
+  border-bottom: 1.5px solid #ccc;
   padding: 1rem;
   &_container {
     display: grid;
@@ -43,7 +42,7 @@
   }
 
   &_title {
-    font-family: $font-main;
+    color: #666;
   }
 }
 

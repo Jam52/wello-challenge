@@ -1,0 +1,52 @@
+@import '../../css/base';
+
+.notesSection {
+  background-color: #fff;
+  border-bottom: 1.5px solid #ccc;
+  padding: 1rem;
+
+  &_header {
+    margin: 0 0 0.7rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $color-grey;
+    flex-grow: 0;
+
+    button {
+      font-family: $font-handwritten;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background-color: transparent;
+      border-radius: 0.5rem;
+      transition: transform 0.2s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.high {
+  border: 2px solid $color-pink;
+}
+.medium {
+  border: 2px solid $color-lemon;
+}
+.low {
+  border: 2px solid $color-green;
+}
+
+.notesSection + .notesSection {
+  margin-top: 2rem;
+}

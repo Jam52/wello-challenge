@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './App.module.scss';
 import NoteCard from './components/NoteCard/NoteCard';
 import Note from './components/Note/Note';
+import NoteCardContainer from './components/NoteCardContainer/NoteCardContainer';
 import Layout from './components/Layout/Layout';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -34,9 +35,14 @@ class App extends Component {
     enableBodyScroll(Note);
   };
 
-  newNoteHandler = () => {
+  newNoteHandler = (priority) => {
     const randomId = Math.random().toString(36).substr(2, 9);
-    const newNote = { title: '', notes: '', priority: 'low', id: randomId };
+    const newNote = {
+      title: '',
+      notes: '',
+      priority: priority,
+      id: randomId,
+    };
     this.setState({
       currentNote: newNote,
     });
@@ -87,57 +93,39 @@ class App extends Component {
     const mediumPriorityNotes = this.returnPriorityNotes('medium');
     const lowPriorityNotes = this.returnPriorityNotes('low');
 
-    const note = (
-      <Note
-        close={this.closeNoteHandler}
-        note={this.state.currentNote}
-        change={(event) => this.updateCurrentNoteHandler(event)}
-        delete={this.deleteNoteHandler}
-      />
-    );
-
     return (
       <div data-testid="component-app">
-        {this.state.showNote ? note : null}
+        {this.state.showNote ? (
+          <Note
+            close={this.closeNoteHandler}
+            note={this.state.currentNote}
+            change={(event) => this.updateCurrentNoteHandler(event)}
+            delete={this.deleteNoteHandler}
+          />
+        ) : null}
         <Layout>
           <header className={styles.header}>
             <h1 className={styles.header_title}>Loads of Notes</h1>
-            <button
-              className={styles.header_add}
-              data-testid="add-note-button"
-              onClick={this.newNoteHandler}
-            >
-              New Note
-            </button>
           </header>
           <main>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
+            <NoteCardContainer
+              priority="High"
+              open={() => this.newNoteHandler('high')}
             >
-              <h2 className={styles.notesSection_title}>High Priority</h2>
-              <div className={styles.notesSection_container}>
-                {highPriorityNotes}
-              </div>
-            </section>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
+              {highPriorityNotes}
+            </NoteCardContainer>
+            <NoteCardContainer
+              priority="Medium"
+              open={() => this.newNoteHandler('medium')}
             >
-              <h2 className={styles.notesSection_title}>Medium Priority</h2>
-              <div className={styles.notesSection_container}>
-                {mediumPriorityNotes}
-              </div>
-            </section>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
+              {mediumPriorityNotes}
+            </NoteCardContainer>
+            <NoteCardContainer
+              priority="Low"
+              open={() => this.newNoteHandler('low')}
             >
-              <h2 className={styles.notesSection_title}>Low Priority</h2>
-              <div className={styles.notesSection_container}>
-                {lowPriorityNotes}
-              </div>
-            </section>
+              {lowPriorityNotes}
+            </NoteCardContainer>
           </main>
         </Layout>
       </div>

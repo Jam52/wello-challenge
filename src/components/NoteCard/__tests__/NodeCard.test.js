@@ -2,7 +2,9 @@ import NoteCard from '../NoteCard';
 import { screen, render, cleanup } from '@testing-library/react';
 
 describe('NoteCard', () => {
-  const props = { note: { title: 'title', notes: 'some notes', priority: 1 } };
+  const props = {
+    note: { title: 'title', notes: 'some notes', priority: 'high' },
+  };
 
   beforeEach(() => {
     render(<NoteCard {...props} />);

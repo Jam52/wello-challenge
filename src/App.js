@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './App.module.scss';
 import NoteCard from './components/NoteCard/NoteCard';
 import Note from './components/Note/Note';
+import NoteCardContainer from './components/NoteCardContainer/NoteCardContainer';
 import Layout from './components/Layout/Layout';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
@@ -111,33 +112,15 @@ class App extends Component {
             </button>
           </header>
           <main>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
-            >
-              <h2 className={styles.notesSection_title}>High Priority</h2>
-              <div className={styles.notesSection_container}>
-                {highPriorityNotes}
-              </div>
-            </section>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
-            >
-              <h2 className={styles.notesSection_title}>Medium Priority</h2>
-              <div className={styles.notesSection_container}>
-                {mediumPriorityNotes}
-              </div>
-            </section>
-            <section
-              data-testid="note-card-container"
-              className={styles.notesSection}
-            >
-              <h2 className={styles.notesSection_title}>Low Priority</h2>
-              <div className={styles.notesSection_container}>
-                {lowPriorityNotes}
-              </div>
-            </section>
+            <NoteCardContainer priority="High">
+              {highPriorityNotes}
+            </NoteCardContainer>
+            <NoteCardContainer priority="Medium">
+              {mediumPriorityNotes}
+            </NoteCardContainer>
+            <NoteCardContainer priority="Low">
+              {lowPriorityNotes}
+            </NoteCardContainer>
           </main>
         </Layout>
       </div>

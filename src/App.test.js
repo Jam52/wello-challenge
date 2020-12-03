@@ -1,11 +1,4 @@
-import {
-  render,
-  screen,
-  cleanup,
-  fireEvent,
-  waitForElementToBeRemoved,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {

@@ -35,9 +35,14 @@ class App extends Component {
     enableBodyScroll(Note);
   };
 
-  newNoteHandler = () => {
+  newNoteHandler = (priority) => {
     const randomId = Math.random().toString(36).substr(2, 9);
-    const newNote = { title: '', notes: '', priority: 'low', id: randomId };
+    const newNote = {
+      title: '',
+      notes: '',
+      priority: priority,
+      id: randomId,
+    };
     this.setState({
       currentNote: newNote,
     });
@@ -88,37 +93,37 @@ class App extends Component {
     const mediumPriorityNotes = this.returnPriorityNotes('medium');
     const lowPriorityNotes = this.returnPriorityNotes('low');
 
-    const note = (
-      <Note
-        close={this.closeNoteHandler}
-        note={this.state.currentNote}
-        change={(event) => this.updateCurrentNoteHandler(event)}
-        delete={this.deleteNoteHandler}
-      />
-    );
-
     return (
       <div data-testid="component-app">
-        {this.state.showNote ? note : null}
+        {this.state.showNote ? (
+          <Note
+            close={this.closeNoteHandler}
+            note={this.state.currentNote}
+            change={(event) => this.updateCurrentNoteHandler(event)}
+            delete={this.deleteNoteHandler}
+          />
+        ) : null}
         <Layout>
           <header className={styles.header}>
             <h1 className={styles.header_title}>Loads of Notes</h1>
-            <button
-              className={styles.header_add}
-              data-testid="add-note-button"
-              onClick={this.newNoteHandler}
-            >
-              New Note
-            </button>
           </header>
           <main>
-            <NoteCardContainer priority="High">
+            <NoteCardContainer
+              priority="High"
+              open={() => this.newNoteHandler('high')}
+            >
               {highPriorityNotes}
             </NoteCardContainer>
-            <NoteCardContainer priority="Medium">
+            <NoteCardContainer
+              priority="Medium"
+              open={() => this.newNoteHandler('medium')}
+            >
               {mediumPriorityNotes}
             </NoteCardContainer>
-            <NoteCardContainer priority="Low">
+            <NoteCardContainer
+              priority="Low"
+              open={() => this.newNoteHandler('low')}
+            >
               {lowPriorityNotes}
             </NoteCardContainer>
           </main>

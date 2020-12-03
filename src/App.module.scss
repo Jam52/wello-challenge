@@ -31,25 +31,6 @@
   }
 }
 
-.notesSection {
-  background-color: #fff;
-  border-bottom: 1.5px solid #ccc;
-  padding: 1rem;
-  &_container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
-  &_title {
-    color: #666;
-  }
-}
-
-.notesSection + .notesSection {
-  margin-top: 2rem;
-}
-
 @media (min-width: $media-tablet) {
   .header {
     flex-direction: row;

@@ -8,10 +8,6 @@ const Note = (props) => {
     autosize(document.querySelectorAll('textarea'));
   });
 
-  const isSelectedPriority = (priority) => {
-    return props.note.priority === priority ? true : false;
-  };
-
   return (
     <div className={styles.background}>
       <div data-testid="component-note" className={styles.note}>
@@ -28,16 +24,15 @@ const Note = (props) => {
         </div>
         <div className={styles.note_input}>
           <label htmlFor="priority">Priority</label>
-          <select id="priority" onChange={props.change}>
-            <option value="high" selected={isSelectedPriority('high')}>
-              high
-            </option>
-            <option value="medium" selected={isSelectedPriority('medium')}>
-              medium
-            </option>
-            <option value="low" selected={isSelectedPriority('low')}>
-              low
-            </option>
+          <select
+            id="priority"
+            onChange={props.change}
+            data-testid="priority-select"
+            value={props.note.priority}
+          >
+            <option value="high">high</option>
+            <option value="medium">medium</option>
+            <option value="low">low</option>
           </select>
         </div>
 

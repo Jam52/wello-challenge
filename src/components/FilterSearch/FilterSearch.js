@@ -6,9 +6,10 @@ const FilterSearch = (props) => {
     <div className={styles.filter}>
       <input
         type="text"
-        value={props.search}
+        value={props.value}
         className={styles.filter_input}
         placeholder="filter notes"
+        onChange={props.change}
       />
       <img
         src={process.env.PUBLIC_URL + '/search.svg'}
@@ -17,6 +18,15 @@ const FilterSearch = (props) => {
       />
     </div>
   );
+};
+
+export const filterNotes = (notes, filter) => {
+  const regex = new RegExp(filter, 'g');
+
+  return notes.filter((note) => {
+    const text = `${note.title} ${note.notes}`;
+    return text.match(regex);
+  });
 };
 
 export default FilterSearch;

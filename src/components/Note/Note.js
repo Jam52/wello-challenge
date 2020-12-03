@@ -15,12 +15,6 @@ const Note = (props) => {
   return (
     <div className={styles.background}>
       <div data-testid="component-note" className={styles.note}>
-        <img
-          src={process.env.PUBLIC_URL + '/tick.svg'}
-          alt="close"
-          className={styles.note_close}
-          onClick={props.close}
-        />
         <div className={styles.note_input}>
           <label htmlFor="title">Title</label>
           <input
@@ -57,9 +51,18 @@ const Note = (props) => {
             onChange={props.change}
           />
         </div>
-        <button className={styles.note_delete} onClick={props.delete}>
-          Delete
-        </button>
+        <div className={styles.note_submit}>
+          <img
+            src={process.env.PUBLIC_URL + '/cross.svg'}
+            alt="delete note"
+            onClick={props.delete}
+          />
+          <img
+            src={process.env.PUBLIC_URL + '/tick.svg'}
+            alt="save note"
+            onClick={props.close}
+          />
+        </div>
       </div>
       <Backdrop close={props.close} />
     </div>

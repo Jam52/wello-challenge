@@ -4,6 +4,7 @@ import NoteCard from './components/NoteCard/NoteCard';
 import Note from './components/Note/Note';
 import NoteCardContainer from './components/NoteCardContainer/NoteCardContainer';
 import Layout from './components/Layout/Layout';
+import FilterSearch from './components/FilterSearch/FilterSearch.js';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 class App extends Component {
@@ -106,6 +107,7 @@ class App extends Component {
         <Layout>
           <header className={styles.header}>
             <h1 className={styles.header_title}>Loads of Notes</h1>
+            <FilterSearch />
           </header>
           <main>
             <NoteCardContainer

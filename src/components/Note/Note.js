@@ -14,6 +14,7 @@ const Note = (props) => {
         <div className={styles.note_input}>
           <label htmlFor="title">Title</label>
           <input
+            data-testid="title-input"
             type="textarea"
             className={styles.note_textarea}
             placeholder="add a title"
@@ -51,11 +52,13 @@ const Note = (props) => {
             src={process.env.PUBLIC_URL + '/cross.svg'}
             alt="delete note"
             onClick={props.delete}
+            data-testid="note-delete"
           />
           <img
             src={process.env.PUBLIC_URL + '/tick.svg'}
             alt="save note"
             onClick={props.close}
+            data-testid="note-save"
           />
         </div>
       </div>

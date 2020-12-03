@@ -19,7 +19,10 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.filter !== this.state.filter) {
+    if (
+      prevState.filter !== this.state.filter ||
+      prevState.notes !== this.state.notes
+    ) {
       this.setState({
         filteredNotes: filterNotes(this.state.notes, this.state.filter),
       });

@@ -21,7 +21,7 @@ const FilterSearch = (props) => {
 };
 
 export const filterNotes = (notes, filter) => {
-  const regex = new RegExp(filter, 'g');
+  const regex = new RegExp(filter, 'gi');
 
   return notes.filter((note) => {
     const text = `${note.title} ${note.notes}`;

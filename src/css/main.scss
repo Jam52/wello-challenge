@@ -8,3 +8,9 @@ h5,
 h6 {
   font-family: $font-handwritten;
 }
+
+@media (min-width: $media_computer_large) {
+  html {
+    font-size: 1.5rem;
+  }
+}

@@ -4,9 +4,7 @@ import NoteCard from './components/NoteCard/NoteCard';
 import Note from './components/Note/Note';
 import NoteCardContainer from './components/NoteCardContainer/NoteCardContainer';
 import Layout from './components/Layout/Layout';
-import FilterSearch, {
-  filterNotes,
-} from './components/FilterSearch/FilterSearch.js';
+import FilterNotes from './components/FilterNotes/FilterNotes.js';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 class App extends Component {
@@ -14,20 +12,8 @@ class App extends Component {
     notes: [],
     showNote: false,
     currentNote: { title: '', notes: '', priority: 'low' },
-    filter: '',
     filteredNotes: [],
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.filter !== this.state.filter ||
-      prevState.notes !== this.state.notes
-    ) {
-      this.setState({
-        filteredNotes: filterNotes(this.state.notes, this.state.filter),
-      });
-    }
-  }
 
   openNote = () => {
     this.setState({ showNote: true });
@@ -91,9 +77,13 @@ class App extends Component {
     this.closeNote();
   };
 
+  updateFilteredNotes = (filteredNotes) => {
+    this.setState({ filteredNotes: filteredNotes });
+  };
+
   returnPriorityNotes = (priority) => {
     let notes = this.state.notes;
-    if (this.state.filter !== '') {
+    if (this.state.filteredNotes.length > 0) {
       notes = this.state.filteredNotes;
     }
     return notes
@@ -125,11 +115,10 @@ class App extends Component {
         <Layout>
           <header className={styles.header}>
             <h1 className={styles.header_title}>Loads of Notes</h1>
-            <FilterSearch
+            <FilterNotes
               filter={this.updateFilteredNotes}
               notes={this.state.notes}
               value={this.state.filter}
-              change={(event) => this.setState({ filter: event.target.value })}
             />
           </header>
           <main>

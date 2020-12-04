@@ -1,6 +1,6 @@
-import { filterNotes } from '../FilterSearch';
+import { returnFilteredNotes } from '../FilterNotes';
 
-describe('FilterSearch', () => {
+describe('FilterNotes', () => {
   const notes = [
     {
       title: 'hello',
@@ -22,6 +22,6 @@ describe('FilterSearch', () => {
   test('filters notes by input text', () => {
     const filterText = 'ello';
     const expectedOutcome = [notes[0], notes[2]];
-    expect(filterNotes(notes, filterText)).toEqual(expectedOutcome);
+    expect(returnFilteredNotes(notes, filterText)).toEqual(expectedOutcome);
   });
 });

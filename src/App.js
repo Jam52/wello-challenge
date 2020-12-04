@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     notes: [],
     showNote: false,
-    currentNote: { title: '', notes: '', priority: 'low' },
+    currentNote: {},
     filtered: '',
   };
 
@@ -39,8 +39,8 @@ class App extends Component {
   };
 
   openExistingNoteHandler = (id) => {
-    const note = this.state.notes.filter((note) => note.id === id)[0];
-    this.openNoteHandler(note);
+    const noteToOpen = this.state.notes.filter((note) => note.id === id)[0];
+    this.openNoteHandler(noteToOpen);
   };
 
   updateNotesInState = (updatedNote) => {
@@ -63,10 +63,6 @@ class App extends Component {
       showNote: false,
     });
     enableBodyScroll(Note);
-  };
-
-  updateFilteredNotes = (filteredNotes) => {
-    this.setState({ filteredNotes: filteredNotes });
   };
 
   returnPriorityNotes = (priority) => {

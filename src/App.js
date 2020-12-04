@@ -15,14 +15,15 @@ class App extends Component {
     filteredNotes: [],
   };
 
-  openNote = () => {
-    this.setState({ showNote: true });
+  openNoteHandler = (note) => {
+    this.setState({ showNote: true, currentNote: note });
     disableBodyScroll(Note);
   };
 
-  closeNote = () => {
+  closeNoteHandler = (updatedNote) => {
     this.setState({ showNote: false });
     enableBodyScroll(Note);
+    this.updateNotesInState(updatedNote);
   };
 
   newNoteHandler = (priority) => {
@@ -33,28 +34,15 @@ class App extends Component {
       priority: priority,
       id: randomId,
     };
-    this.setState({
-      currentNote: newNote,
-    });
-    this.openNote();
+    this.openNoteHandler(newNote);
   };
 
   openExistingNoteHandler = (id) => {
     const note = this.state.notes.filter((note) => note.id === id)[0];
-    this.setState({ currentNote: note });
-    this.openNote();
+    this.openNoteHandler(note);
   };
 
-  updateCurrentNoteHandler = (event) => {
-    let newNote = { ...this.state.currentNote };
-    newNote[event.target.id] = event.target.value;
-    this.setState({
-      currentNote: newNote,
-    });
-  };
-
-  closeNoteHandler = () => {
-    const updatedNote = this.state.currentNote;
+  updateNotesInState = (updatedNote) => {
     const filteredNotes = this.state.notes.filter(
       (note) => note.id !== updatedNote.id,
     );
@@ -65,16 +53,15 @@ class App extends Component {
     } else {
       this.setState({ notes: [...filteredNotes] });
     }
-    this.closeNote();
   };
 
-  deleteNoteHandler = () => {
-    const currentNoteId = this.state.currentNote.id;
+  deleteNoteHandler = (noteToDelete) => {
+    this.setState({ showNote: false });
+    enableBodyScroll(Note);
     const filteredNotes = this.state.notes.filter(
-      (note) => note.id !== currentNoteId,
+      (note) => note.id !== noteToDelete.id,
     );
     this.setState({ notes: [...filteredNotes] });
-    this.closeNote();
   };
 
   updateFilteredNotes = (filteredNotes) => {
@@ -92,7 +79,7 @@ class App extends Component {
         <NoteCard
           note={note}
           key={index}
-          click={() => this.openExistingNoteHandler(note.id)}
+          click={() => this.openNoteHandler(note)}
         />
       ));
   };
@@ -108,7 +95,6 @@ class App extends Component {
           <Note
             close={this.closeNoteHandler}
             note={this.state.currentNote}
-            change={(event) => this.updateCurrentNoteHandler(event)}
             delete={this.deleteNoteHandler}
           />
         ) : null}

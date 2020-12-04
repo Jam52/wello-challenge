@@ -4,7 +4,7 @@ describe('FilterNotes', () => {
   const notes = [
     {
       id: 1,
-      title: 'hello',
+      title: 'hello${}[]',
       notes: 'some notes',
       priority: 'low',
     },
@@ -25,6 +25,11 @@ describe('FilterNotes', () => {
   test('filters notes by input text', () => {
     const filterText = 'ello';
     const expectedOutcome = [notes[0], notes[2]];
+    expect(returnFilteredNotes(notes, filterText)).toEqual(expectedOutcome);
+  });
+  test('filters notes by input text when given a none text values', () => {
+    const filterText = 'ello${}[]';
+    const expectedOutcome = [notes[0]];
     expect(returnFilteredNotes(notes, filterText)).toEqual(expectedOutcome);
   });
 

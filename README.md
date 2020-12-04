@@ -52,7 +52,9 @@ npm start
 
 ## Hosting
 
-Not hosted yet.
+Hosted on [Netlify](https://www.netlify.com/)
+
+[View Site](https://5fc9aeea8805184ea9b9596d--tender-sinoussi-9203a7.netlify.app/)
 
 ## Contact
 

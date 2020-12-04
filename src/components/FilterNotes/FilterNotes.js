@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './FilterSearch.module.scss';
+import styles from './FilterNotes.module.scss';
 
-const FilterSearch = (props) => {
+const FilterNotes = (props) => {
   return (
     <div className={styles.filter}>
       <input
@@ -20,13 +20,4 @@ const FilterSearch = (props) => {
   );
 };
 
-export const filterNotes = (notes, filter) => {
-  const regex = new RegExp(filter, 'gi');
-
-  return notes.filter((note) => {
-    const text = `${note.title} ${note.notes}`;
-    return text.match(regex);
-  });
-};
-
-export default FilterSearch;
+export default FilterNotes;

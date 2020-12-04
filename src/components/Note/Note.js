@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Note.module.scss';
 import autosize from 'autosize';
 import Backdrop from '../Backdrop/Backdrop';
 
 const Note = (props) => {
+  let [currentNote, updateCurrentNote] = useState(props.note);
+
   useEffect(() => {
     autosize(document.querySelectorAll('textarea'));
   });
 
-  console.log(props.note);
-
   const priorityStyles =
-    props.note.priority === 'high'
+    currentNote.priority === 'high'
       ? styles.high
-      : props.note.priority === 'medium'
+      : currentNote.priority === 'medium'
       ? styles.medium
       : styles.low;
 
@@ -28,8 +28,10 @@ const Note = (props) => {
             className={styles.note_textarea}
             placeholder="add a title"
             id="title"
-            value={props.note.title}
-            onChange={props.change}
+            value={currentNote.title}
+            onChange={(event) => {
+              updateCurrentNote({ ...currentNote, title: event.target.value });
+            }}
           />
         </div>
         <div className={styles.note_input}>
@@ -37,9 +39,14 @@ const Note = (props) => {
           <select
             className={priorityStyles}
             id="priority"
-            onChange={props.change}
+            onChange={(event) => {
+              updateCurrentNote({
+                ...currentNote,
+                priority: event.target.value,
+              });
+            }}
             data-testid="priority-select"
-            value={props.note.priority}
+            value={currentNote.priority}
           >
             <option value="high" className={styles.high}>
               high
@@ -59,26 +66,28 @@ const Note = (props) => {
             className={styles.note_textarea}
             placeholder="add some notes"
             id="notes"
-            value={props.note.notes}
-            onChange={props.change}
+            value={currentNote.notes}
+            onChange={(event) => {
+              updateCurrentNote({ ...currentNote, notes: event.target.value });
+            }}
           />
         </div>
         <div className={styles.note_submit}>
           <img
             src={process.env.PUBLIC_URL + '/cross.svg'}
             alt="delete note"
-            onClick={props.delete}
+            onClick={() => props.delete(currentNote)}
             data-testid="note-delete"
           />
           <img
             src={process.env.PUBLIC_URL + '/tick.svg'}
             alt="save note"
-            onClick={props.close}
+            onClick={() => props.close(currentNote)}
             data-testid="note-save"
           />
         </div>
       </div>
-      <Backdrop close={props.close} />
+      <Backdrop close={() => props.close(currentNote)} />
     </div>
   );
 };

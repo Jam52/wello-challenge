@@ -8,6 +8,7 @@ const NoteCardContainer = (props) => {
       : props.priority === 'Medium'
       ? styles.medium
       : styles.low;
+
   return (
     <section data-testid="note-card-container" className={styles.notesSection}>
       <div className={styles.notesSection_header}>
@@ -20,7 +21,6 @@ const NoteCardContainer = (props) => {
           + note
         </button>
       </div>
-
       <div className={styles.notesSection_container}>{props.children}</div>
     </section>
   );
